@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Survey - Nicolas Emery</title>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/process_form.js" type="text/javascript"></script>
+</head>
+  <body>
+    <header>
+      <h1>Quiz Name</h1>
+    </header>
+
+    <div id="personalInfoWrapper">
+      <h2 id="personalInfoTitle"> Personal Info </h2>
+      <form action="#" method="post">
+        <!-- Personal Info Form -->
+        <label>First Name </label>
+        <span id="firstNameMessage"> </span>
+        <input class="textBox" id="firstNameTextBox" type="text"></input>
+
+        <label>Last Name </label>
+        <span id="lastNameMessage"> </span>
+        <input class="textBox" id="lastNameTextBox" type="text"></input>
+
+        <label>Email Address </label>
+        <span id="emailAddressMessage"> </span>
+        <input class="textBox" id="emailAddressTextBox" type="text"></input>
+
+        <label>Phone Number </label>
+        <span id="phoneNumberMessage"> </span>
+        <input class="textBox" id="phoneNumberTextBox" type="text"></input>
+
+        <label>Sulley Address </label>
+        <span id="sulleyAddressMessage"> </span>
+        <input class="textBox" id="sulleyAddressTextBox" type="text"></input>
+
+        <button class="button" value="submit" onclick="validateData()">Submit</button>
+      </form>
+    </div>
+
+    <footer>
+      <p>Created by: Nicolas Emery</p>
+    </footer>
+  </body>
+</html>
