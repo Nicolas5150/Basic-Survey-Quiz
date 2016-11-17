@@ -38,9 +38,13 @@ function formAssistAdd(event, clickID, error){
   event.preventDefault();
   // Remove all tags on current div
   formAssistRemove(event, clickID, error);
+  // Change color back to default if an error has been shown before
+  document.getElementById(clickID).style.color = "black";
   var info = "";
   // Check to see if an error was passed in
   if (error != ""){
+    // Change color of error message to red
+    document.getElementById(clickID).style.color = "red";
     info = "Incorrect ";
   }
   // Switch Statment to append correct example to screen
@@ -91,10 +95,21 @@ function formAssistRemove(event, clickID, errorTextBox){
 // Once the user has clicked the submit button then validate the data
 function validateData(){
   event.preventDefault();
-  var firstNameTextBox = document.getElementById('firstNameTextBox');
-  var lastNameTextBox = document.getElementById('lastNameTextBox');
-  var emailAddressTextBox = document.getElementById('emailAddressTextBox');
-  var phoneNumberTextBox = document.getElementById('phoneNumberTextBox');
-  var sulleyAddressTextBox = document.getElementById('sulleyAddressTextBox');
+  var firstNameTextBox = document.getElementById('firstNameTextBox').value;
+  var lastNameTextBox = document.getElementById('lastNameTextBox').value;
+  var emailAddressTextBox = document.getElementById('emailAddressTextBox').value;
+  var phoneNumberTextBox = document.getElementById('phoneNumberTextBox').value;
+  var sulleyAddressTextBox = document.getElementById('sulleyAddressTextBox').value;
+
+  // Validate first name
+  var validate = /^[a-zA-Z]+$/;
+  if (!validate.test(firstNameTextBox)){
   formAssistAdd(event,"firstNameMessage", "error");
+  }
+
+  // Validate last name
+  var validate = /^[a-zA-Z]+$/;
+  if (!validate.test(lastNameTextBox)){
+  formAssistAdd(event,"lastNameMessage", "error");
+  }
 }
