@@ -4,39 +4,39 @@ function init() {
   // Pass the validateData() func the  corresponding textbox to check and
   // the span above it (ex. lastNameMessage) that needs manipulating.
   var firstNameTextBox = document.getElementById("firstNameTextBox");
-  firstNameTextBox.addEventListener("focus",function(){
+  firstNameTextBox.addEventListener("focus",function() {
     formAssistAdd(event, "firstNameMessage", "");}, true);
   firstNameTextBox.addEventListener("blur",function(){
     validateData("firstNameTextBox","firstNameMessage");}, true);
 
   var lastNameTextBox = document.getElementById("lastNameTextBox");
-  lastNameTextBox.addEventListener("focus",function(){
+  lastNameTextBox.addEventListener("focus",function() {
     formAssistAdd(event, "lastNameMessage", "");}, true);
-  lastNameTextBox.addEventListener("blur",function(){
+  lastNameTextBox.addEventListener("blur",function() {
     validateData("lastNameTextBox", "lastNameMessage");}, true);
 
   var emailAddressTextBox = document.getElementById("emailAddressTextBox");
-  emailAddressTextBox.addEventListener("focus",function(){
+  emailAddressTextBox.addEventListener("focus",function() {
     formAssistAdd(event, "emailAddressMessage", "");}, true);
-  emailAddressTextBox.addEventListener("blur",function(){
+  emailAddressTextBox.addEventListener("blur",function() {
     validateData("emailAddressTextBox","emailAddressMessage");}, true);
 
   var phoneNumberTextBox = document.getElementById("phoneNumberTextBox");
-  phoneNumberTextBox.addEventListener("focus",function(){
+  phoneNumberTextBox.addEventListener("focus",function() {
     formAssistAdd(event, "phoneNumberMessage", "");}, true);
-  phoneNumberTextBox.addEventListener("blur",function(){
+  phoneNumberTextBox.addEventListener("blur",function() {
     validateData("phoneNumberTextBox", "phoneNumberMessage");}, true);
 
   var sulleyAddressTextBox = document.getElementById("sulleyAddressTextBox");
-  sulleyAddressTextBox.addEventListener("focus",function(){
+  sulleyAddressTextBox.addEventListener("focus",function() {
     formAssistAdd(event, "sulleyAddressMessage", "");}, true);
-  sulleyAddressTextBox.addEventListener("blur",function(){
+  sulleyAddressTextBox.addEventListener("blur",function() {
     validateData("sulleyAddressTextBox", "sulleyAddressMessage");}, true);
 }
 
 // Add data / text to the div argument passed in
 // Pass in error as a paramter to know if one occured durring validateData()
-function formAssistAdd(event, messageID, error){
+function formAssistAdd(event, messageID, error) {
   event.preventDefault();
   // Remove all tags on current div
   formAssistRemove(messageID);
@@ -45,7 +45,8 @@ function formAssistAdd(event, messageID, error){
   document.getElementById(messageID).style.color = "black";
   var info = "";
   // Check to see if an error was passed in
-  if (error != ""){
+  if (error !== "")
+  {
     // APPEND A X MARK SIGN HERE!!!!!!!!
     // APPEND A X MARK SIGN HERE!!!!!!!!
     // Change color of error message to red
@@ -76,7 +77,7 @@ function formAssistAdd(event, messageID, error){
       break;
 
     default:
-      break
+      break;
   }
 
   // Actual appending of text to the messageID.
@@ -88,7 +89,7 @@ function formAssistAdd(event, messageID, error){
 }
 
 // Remove any data on the div argument passed in
-function formAssistRemove(messageID){
+function formAssistRemove(messageID) {
   event.preventDefault();
   var removeByID = document.getElementById(messageID);
   while(removeByID.hasChildNodes()) {
@@ -97,11 +98,12 @@ function formAssistRemove(messageID){
 }
 
 // Once the user has unclikced the text box then validate the specifc data
-function validateData(textBox, messageID){
+function validateData(textBox, messageID) {
   // Remove all tags on current div
   // and obtain which text box to validate.
   formAssistRemove(messageID);
   var textBoxCheck = document.getElementById(textBox).value;
+  var validate = "";
 
 
   var lastNameTextBox = document.getElementById('lastNameTextBox').value;
@@ -117,10 +119,12 @@ function validateData(textBox, messageID){
     // Validate first or last name
     case "firstNameTextBox":
     case "lastNameTextBox":
-      var validate = /^[a-zA-Z]*$/;
-      if (!validate.test(textBoxCheck) || textBoxCheck == ""){
-      formAssistAdd(event, messageID, "error");}
-      else{
+      validate = /^[a-zA-Z]*$/;
+      if (!validate.test(textBoxCheck) || textBoxCheck === "") {
+        formAssistAdd(event, messageID, "error");
+      }
+      else
+      {
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         return true;
@@ -130,10 +134,12 @@ function validateData(textBox, messageID){
 
     // Validate email
     case "emailAddressTextBox":
-      var validate = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
-      if (!validate.test(textBoxCheck)){
-      formAssistAdd(event, messageID, "error");}
-      else{
+      validate = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+      if (!validate.test(textBoxCheck)) {
+        formAssistAdd(event, messageID, "error");
+      }
+      else
+      {
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         return true;
@@ -143,10 +149,12 @@ function validateData(textBox, messageID){
 
     // Validate phone
     case "phoneNumberTextBox":
-      var validate = /^\d{3}\-\d{3}\-\d{4}/i;
-      if (!validate.test(textBoxCheck)){
-      formAssistAdd(event, messageID, "error");}
-      else{
+      validate = /^\d{3}\-\d{3}\-\d{4}/i;
+      if (!validate.test(textBoxCheck)) {
+        formAssistAdd(event, messageID, "error");
+      }
+      else
+      {
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         return true;
@@ -156,10 +164,11 @@ function validateData(textBox, messageID){
 
     // Validate sulley address
     case "sulleyAddressTextBox":
-      var validate = /^\d{3}\-\d{3}\-\d{4}/i;
-      if (!validate.test(textBoxCheck)){
-      formAssistAdd(event, messageID, "error");}
-      else{
+      validate = /^\d{3}\-\d{3}\-\d{4}/i;
+      if (!validate.test(textBoxCheck)) {
+        formAssistAdd(event, messageID, "error");
+      }
+      else {
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         return true;
@@ -194,14 +203,15 @@ function validateDataEntries() {
   ];
 
   // Loop through all textboxes for valid data.
-  for (i=0; i<textBoxArray.length-1; i++)
+  for (i=0; i<=textBoxArray.length-1; i++)
   {
-    if (validateData(textBoxArray[i], messageIDArray[i])){
+    if (validateData(textBoxArray[i], messageIDArray[i])) {
       validDataEntry ++;
     }
   }
 
-  if (validDataEntry == textBoxArray.length-1){
+  // If all form data is valid then proceed.
+  if (validDataEntry == textBoxArray.length) {
     alert("worked");
   }
 }
