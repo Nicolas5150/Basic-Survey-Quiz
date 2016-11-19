@@ -68,7 +68,7 @@ function formAssistAdd(event, messageID, error){
       break;
 
     case "phoneNumberMessage":
-      info += "Ex. 555-5555-555";
+      info += "Ex. 555-555-5555";
       break;
 
     case "sulleyAddressMessage":
@@ -103,6 +103,7 @@ function validateData(textBox, messageID){
   formAssistRemove(messageID);
   var textBoxCheck = document.getElementById(textBox).value;
 
+
   var lastNameTextBox = document.getElementById('lastNameTextBox').value;
   var emailAddressTextBox = document.getElementById('emailAddressTextBox').value;
   var phoneNumberTextBox = document.getElementById('phoneNumberTextBox').value;
@@ -122,31 +123,85 @@ function validateData(textBox, messageID){
       else{
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+        return true;
       }
-      break;
+      return false;
+
 
     // Validate email
     case "emailAddressTextBox":
       var validate = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
       if (!validate.test(textBoxCheck)){
       formAssistAdd(event, messageID, "error");}
-      break;
+      else{
+        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+        return true;
+      }
+      return false;
+
 
     // Validate phone
     case "phoneNumberTextBox":
       var validate = /^\d{3}\-\d{3}\-\d{4}/i;
       if (!validate.test(textBoxCheck)){
       formAssistAdd(event, messageID, "error");}
-      break;
+      else{
+        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+        return true;
+      }
+      return false;
+
 
     // Validate sulley address
     case "sulleyAddressTextBox":
       var validate = /^\d{3}\-\d{3}\-\d{4}/i;
       if (!validate.test(textBoxCheck)){
       formAssistAdd(event, messageID, "error");}
-      break;
+      else{
+        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+        return true;
+      }
+      return false;
 
     default:
-      break
+      return false;
+  }
+}
+
+// This function is called once the user has clicked submit
+function validateDataEntries() {
+  // Create arrays that hold the ids of both the text box and
+  // the span above it (ex. lastNameMessage).
+  // These get passed in and checked once more to validate the data.
+  // This will also eliminate the posibity of someone just hitting submit
+  var validDataEntry = 0;
+  var textBoxArray = [
+    "firstNameTextBox",
+    "lastNameTextBox",
+    "emailAddressTextBox",
+    "phoneNumberTextBox",
+    "sulleyAddressTextBox"
+  ];
+  var messageIDArray = [
+    "firstNameMessage",
+    "lastNameMessage",
+    "emailAddressMessage",
+    "phoneNumberMessage",
+    "sulleyAddressMessage"
+  ];
+
+  // Loop through all textboxes for valid data.
+  for (i=0; i<textBoxArray.length-1; i++)
+  {
+    if (validateData(textBoxArray[i], messageIDArray[i])){
+      validDataEntry ++;
+    }
+  }
+
+  if (validDataEntry == textBoxArray.length-1){
+    alert("worked");
   }
 }
