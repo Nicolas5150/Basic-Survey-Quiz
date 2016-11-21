@@ -3,3 +3,12 @@
 .textBox{
     display: block;
 }
+
+
+#questionTwo{
+  display: none;
+}
+
+#questionThree{
+  display: none;
+}

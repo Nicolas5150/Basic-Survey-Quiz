@@ -182,6 +182,7 @@ function validateData(textBox, messageID) {
 
 // This function is called once the user has clicked submit
 function validateDataEntries() {
+  event.preventDefault();
   // Create arrays that hold the ids of both the text box and
   // the span above it (ex. lastNameMessage).
   // These get passed in and checked once more to validate the data.
@@ -213,5 +214,47 @@ function validateDataEntries() {
   // If all form data is valid then proceed.
   if (validDataEntry == textBoxArray.length) {
     alert("worked");
+  }
+}
+
+// Move html page to the next questionNumber
+// Hide all other spans type questions
+function changeQuestion(questionNumber, direction){
+  event.preventDefault();
+
+  // Switch Statment to append correct example to messageID
+  // Use display to have contnet be diplayed in the same location with block
+  switch(questionNumber) {
+    case "Q1":
+      document.getElementById("questionOne").style.display = "none";
+      document.getElementById("questionTwo").style.display = "block";
+      break;
+
+    case "Q2":
+      if (direction === "forward")
+      {
+        document.getElementById("questionTwo").style.display = "none";
+        document.getElementById("questionThree").style.display = "block";
+      }
+      else {
+        document.getElementById("questionTwo").style.display = "none";
+        document.getElementById("questionOne").style.display = "block";
+      }
+      break;
+
+    case "Q3":
+      if (direction === "forward")
+      {
+        document.getElementById("questionThree").style.display = "none";
+        document.getElementById("questionFour").style.display = "block";
+      }
+      else {
+        document.getElementById("questionThree").style.display = "none";
+        document.getElementById("questionTwo").style.display = "block";
+      }
+      break;
+
+    default:
+      break;
   }
 }

@@ -40,6 +40,34 @@
       </form>
     </div>
 
+    <div id="surveyWrapper">
+      <form action="#" method="post">
+        <!-- Personal Info Form -->
+        <span id="questionOne">
+          <label>Question One </label> <br/>
+          <input type="radio" name="questionOne" value="Q1A1" class="radioButtons"/> A1 <br/>
+          <input type="radio" name="questionOne" value="Q1A2" class="radioButtons"/> A2 <br/>
+          <button class="button" value="submit" onclick="changeQuestion('Q1','forward')">Forward</button> <br/>
+        </span>
+
+        <span id="questionTwo">
+          <label>Question Two </label> <br/>
+          <input type="radio" name="questionTwo" value="Q2A1" class="radioButtons"/> A1 <br/>
+          <input type="radio" name="questionOne" value="Q2A2" class="radioButtons"/> A2 <br/>
+          <button class="button" value="submit" onclick="changeQuestion('Q2','back')">Back</button>
+          <button class="button" value="submit" onclick="changeQuestion('Q2','forward')">Forward</button> <br/>
+        </span>
+
+        <span id="questionThree">
+          <label>Question Three </label> <br/>
+          <input type="radio" name="questionThree" value="Q3A1" class="radioButtons"/> A1 <br/>
+          <input type="radio" name="questionThree" value="Q3A2" class="radioButtons"/> A2 <br/>
+          <button class="button" value="submit" onclick="changeQuestion('Q3','back')">Back</button>
+          <button class="button" value="submit" onclick="changeQuestion('Q3','forward')">Forward</button> <br/>
+        </span>
+      </form>
+    </div>
+
     <footer>
       <p>Created by: Nicolas Emery</p>
     </footer>
