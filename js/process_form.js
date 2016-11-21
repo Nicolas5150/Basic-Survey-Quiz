@@ -1,8 +1,8 @@
 window.addEventListener('load',init,false);
 function init() {
   // The event listener for each focus and blur on all text boxes.
-  // Pass the validateData() func the  corresponding textbox to check and
-  // the span above it (ex. lastNameMessage) that needs manipulating.
+  // Pass the validateData() func the  corresponding textbox to check it and
+  // the span above it (ex. lastNameMessage - where text will append to.
   var firstNameTextBox = document.getElementById("firstNameTextBox");
   firstNameTextBox.addEventListener("focus",function() {
     formAssistAdd(event, "firstNameMessage", "");}, true);
@@ -34,10 +34,11 @@ function init() {
     validateData("sulleyAddressTextBox", "sulleyAddressMessage");}, true);
 }
 
-// Add data / text to the div argument passed in
-// Pass in error as a paramter to know if one occured durring validateData()
+// Add data / text to the div argument passed in.
+// Pass in error as a paramter to know if one occured durring validateData().
 function formAssistAdd(event, messageID, error) {
   event.preventDefault();
+
   // Remove all tags on current div
   formAssistRemove(messageID);
 
@@ -115,7 +116,6 @@ function validateData(textBox, messageID) {
   // Switch Statment to check form data for errors
   // Append error message and assistant text to the corresponding textbox
   switch(textBox) {
-
     // Validate first or last name
     case "firstNameTextBox":
     case "lastNameTextBox":
@@ -131,7 +131,6 @@ function validateData(textBox, messageID) {
       }
       return false;
 
-
     // Validate email
     case "emailAddressTextBox":
       validate = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
@@ -145,7 +144,6 @@ function validateData(textBox, messageID) {
         return true;
       }
       return false;
-
 
     // Validate phone
     case "phoneNumberTextBox":
@@ -161,14 +159,14 @@ function validateData(textBox, messageID) {
       }
       return false;
 
-
     // Validate sulley address
     case "sulleyAddressTextBox":
       validate = /^\d{3}\-\d{3}\-\d{4}/i;
       if (!validate.test(textBoxCheck)) {
         formAssistAdd(event, messageID, "error");
       }
-      else {
+      else
+      {
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         // APPEND A CHECK MARK SIGN HERE!!!!!!!!
         return true;
@@ -183,6 +181,7 @@ function validateData(textBox, messageID) {
 // This function is called once the user has clicked submit
 function validateDataEntries() {
   event.preventDefault();
+
   // Create arrays that hold the ids of both the text box and
   // the span above it (ex. lastNameMessage).
   // These get passed in and checked once more to validate the data.
@@ -204,35 +203,33 @@ function validateDataEntries() {
   ];
 
   // Loop through all textboxes for valid data.
-  for (i=0; i<=textBoxArray.length-1; i++)
-  {
+  for (i=0; i<=textBoxArray.length-1; i++) {
     if (validateData(textBoxArray[i], messageIDArray[i])) {
       validDataEntry ++;
     }
   }
-
   // If all form data is valid then proceed.
   if (validDataEntry == textBoxArray.length) {
     alert("worked");
   }
 }
 
-// Move html page to the next questionNumber
-// Hide all other spans type questions
-function changeQuestion(questionNumber, direction){
+// SURVEY SECTION
+// Change question to previous or next.
+function changeQuestion(questionNumber, direction) {
   event.preventDefault();
 
-  // Switch Statment to append correct example to messageID
-  // Use display to have contnet be diplayed in the same location with block
+  // Switch Statment to hide or show question(s).
+  // Use display to have contnet be diplayed in the same location with block.
   switch(questionNumber) {
+    // Can only go forward since it's the start.
     case "Q1":
       document.getElementById("questionOne").style.display = "none";
       document.getElementById("questionTwo").style.display = "block";
       break;
 
     case "Q2":
-      if (direction === "forward")
-      {
+      if (direction === "forward") {
         document.getElementById("questionTwo").style.display = "none";
         document.getElementById("questionThree").style.display = "block";
       }
@@ -243,8 +240,7 @@ function changeQuestion(questionNumber, direction){
       break;
 
     case "Q3":
-      if (direction === "forward")
-      {
+      if (direction === "forward") {
         document.getElementById("questionThree").style.display = "none";
         document.getElementById("questionFour").style.display = "block";
       }
@@ -254,7 +250,60 @@ function changeQuestion(questionNumber, direction){
       }
       break;
 
+    case "Q4":
+      if (direction === "forward") {
+        document.getElementById("questionFour").style.display = "none";
+        document.getElementById("questionFive").style.display = "block";
+      }
+      else {
+        document.getElementById("questionFour").style.display = "none";
+        document.getElementById("questionThree").style.display = "block";
+      }
+      break;
+
+    case "Q5":
+      if (direction === "forward") {
+        document.getElementById("questionFive").style.display = "none";
+        document.getElementById("questionSix").style.display = "block";
+      }
+      else {
+        document.getElementById("questionFive").style.display = "none";
+        document.getElementById("questionFour").style.display = "block";
+      }
+      break;
+
+    // Can only go back since it's end.
+    case "Q6":
+      document.getElementById("questionSix").style.display = "none";
+      document.getElementById("questionFive").style.display = "block";
+      break;
+
     default:
       break;
+  }
+}
+
+// Check the results or alert the user a radio button was not clicked
+function finish() {
+  event.preventDefault();
+  var checked = false;
+  var i = 1;
+  // Check all questions 1-6 and find any unanswered
+  for (i=1; i<=6; i++)
+  {
+    checked = false;
+    var answerPos = "Q"+i;
+    var answers = document.getElementsByClassName(answerPos);
+    for (j=0; j<answers.length; j++)
+    {
+      if (answers[j].checked)
+        checked = true;
+      if (j == answers.length-1 && checked === false)
+        alert("Question " + i + " is not answered!");
+    }
+  }
+  // The answers were all selected so go ahead and validate
+  if (i == 6 && checked === true) {
+    alert("All questions answered!");
   }
 }
