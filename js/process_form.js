@@ -1,7 +1,7 @@
 window.addEventListener('load',init,false);
 function init() {
-  // Create global arrays that hold the ids of both the text box and span id
-  // These get passed in as ID names to validate the corresponding data.
+  // Create global arrays that hold the ids of both the text box and span id.
+  // These get passed in as id names to validate the corresponding data.
   textBoxArray = [
     "firstNameTextBox",
     "lastNameTextBox",
@@ -9,7 +9,6 @@ function init() {
     "phoneNumberTextBox",
     "sulleyAddressTextBox"
   ];
-  // Info will be appended to the corresponding span id
   messageIDArray = [
     "firstNameMessage",
     "lastNameMessage",
@@ -18,7 +17,7 @@ function init() {
     "sulleyAddressMessage"
   ];
 
-  // The event listener for each focus and blur on all text boxes.
+  // The event listener for each focus and blur (on all text boxes).
   var firstNameTextBox = document.getElementById(textBoxArray[0]);
   firstNameTextBox.addEventListener("focus",function() {
     formAssistAdd(event, messageIDArray[0], null);}, true);
@@ -50,19 +49,18 @@ function init() {
     validateData(textBoxArray[4], messageIDArray[4]);}, true);
 }
 
-// Add data / text to the div argument passed in.
-// Pass in error as a paramter to know if one occured durring validateData().
+// Append text to the span argument passed in as messageID.
+// Error parameter only is passed properly durring validateData().
 function formAssistAdd(event, messageID, error) {
   event.preventDefault();
 
-  // Remove all tags on current div
+  // Remove all tags and text appended on current span.
   formAssistRemove(messageID);
 
-  // Change color back to default if an error has been shown before
+  // Change color to default and instantiate info text to be appended to span.
   document.getElementById(messageID).style.color = "black";
   var info = "";
-  // Check to see if an error was passed in
-  if (error !== "")
+  if (error !== null)
   {
     // APPEND A X MARK SIGN HERE!!!!!!!!
     // APPEND A X MARK SIGN HERE!!!!!!!!
@@ -71,7 +69,7 @@ function formAssistAdd(event, messageID, error) {
     info = "Incorrect ";
   }
 
-  // Switch Statment to append correct example to messageID
+  // Switch Statment to append correct example text to messageID span.
   switch(messageID) {
     case ("firstNameMessage"):
       info += "Ex. John";
@@ -97,7 +95,7 @@ function formAssistAdd(event, messageID, error) {
       break;
   }
 
-  // Actual appending of text to the messageID.
+  // Actual appending of text to the messageID span.
   var para = document.createElement("span");
   var node = document.createTextNode(info);
   para.appendChild(node);
@@ -105,27 +103,23 @@ function formAssistAdd(event, messageID, error) {
   element.appendChild(para);
 }
 
-// Remove any data on the div argument passed in
+// Remove any data on the messageID span argument passed in.
 function formAssistRemove(messageID) {
-  event.preventDefault();
   var removeByID = document.getElementById(messageID);
   while(removeByID.hasChildNodes()) {
     removeByID.removeChild(removeByID.lastChild);
   }
 }
 
-// Once the user has unclikced the text box then validate the specifc data
+// Once the user has unclikced the text box then validate the specifc data.
 function validateData(textBox, messageID) {
-  // Remove all tags on current div
-  // and obtain which text box to validate.
   formAssistRemove(messageID);
   var textBoxCheck = document.getElementById(textBox).value;
   var validate = "";
 
-  // Switch Statment to check form data for errors
-  // Append error message and assistant text to the corresponding textbox
+  // Switch Statment to check form data for errors.
   switch(textBox) {
-    // Validate first or last name
+    // Validate first or last name.
     case "firstNameTextBox":
     case "lastNameTextBox":
       validate = /^[a-zA-Z]*$/;
@@ -140,7 +134,7 @@ function validateData(textBox, messageID) {
       }
       return false;
 
-    // Validate email
+    // Validate email.
     case "emailAddressTextBox":
       validate = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
       if (!validate.test(textBoxCheck)) {
@@ -154,7 +148,7 @@ function validateData(textBox, messageID) {
       }
       return false;
 
-    // Validate phone
+    // Validate phone.
     case "phoneNumberTextBox":
       validate = /^\d{3}\-\d{3}\-\d{4}/i;
       if (!validate.test(textBoxCheck)) {
@@ -168,7 +162,7 @@ function validateData(textBox, messageID) {
       }
       return false;
 
-    // Validate sulley address
+    // Validate sulley address.
     case "sulleyAddressTextBox":
       validate = /^\d{3}\-\d{3}\-\d{4}/i;
       if (!validate.test(textBoxCheck)) {
@@ -187,7 +181,7 @@ function validateData(textBox, messageID) {
   }
 }
 
-// This function is called once the user has clicked submit
+// This function is called once the user has clicked the submit button.
 function validateDataEntries() {
   event.preventDefault();
   var validDataEntry = 0;
@@ -214,7 +208,6 @@ function changeQuestion(questionNumber, direction) {
   event.preventDefault();
 
   // Switch Statment to hide or show question(s).
-  // Use display to have contnet be diplayed in the same location with block.
   switch(questionNumber) {
     // Can only go forward since it's the start.
     case "Q1":
@@ -266,7 +259,7 @@ function changeQuestion(questionNumber, direction) {
       }
       break;
 
-    // Can only go back since it's end.
+    // Can only go back since it's the end.
     case "Q6":
       document.getElementById("questionSix").style.display = "none";
       document.getElementById("questionFive").style.display = "block";
@@ -277,13 +270,13 @@ function changeQuestion(questionNumber, direction) {
   }
 }
 
-// Check the results or alert the user a radio button was not clicked
+// Check the results or alert the user a radio button was not clicked.
 function finish() {
   event.preventDefault();
-  var i, j, k=0, checked;
-  var checkedAnswers = [];
-  // Check all questions 1-6 and find any unanswered
-  // Pull the radio button from the html via class "Qi" - i being question number
+  var i, j, k=0, l=0, checked;
+  var checkedAnswers = [], checkedAnswersCount = [];
+
+  // Pull radio button data from the html class "Qi"; i being question number.
   for (i=1; i<=6; i++)
   {
     checked = false;
@@ -291,21 +284,45 @@ function finish() {
     for (j=0; j<answers.length; j++)
     {
       // An answer was selected, store it in the array
-      if (answers[j].checked){
+      if (answers[j].checked) {
         checked = true;
         checkedAnswers[k] = answers[j].value;
         k ++;
         break;
       }
-      // No answer picked throughout all radio buttons of that specifc question
-      if (j == answers.length-1 && checked === false)
+      // No answer picked throughout all radio buttons of that specifc question.
+      if (j == answers.length-1 && checked === false) {
         alert("Question " + i + " is not answered!");
+      }
     }
   }
 
-  // If the array is filled all the way then all questions had an answer.
-  // The checked answers can now be processed.
-  if (checkedAnswers.length == 6) {
+  // If the array is filled (with 6 answers), data can be processed.
+  var listLength = checkedAnswers.length;
+  if (listLength == 6)
+  {
+    j = 1;
     alert("All questions answered!");
+    // Array order for which person gets the vote.
+    // Ben-Affleck:0, Christian-Bale:1, George-Clooney:2, Kevin-Conroy:3, Adam-West:4
+    // Questions 1-5.
+    for (i=0; i<listLength-1; i++)
+    {
+      checkedAnswersCount[i] = 0;
+      if(checkedAnswers[i] == "Q"+j+"A1") {
+        checkedAnswersCount[i] ++ ;
+      }
+      j ++;
+    }
+    // Last question with 2+ answers / radio buttons.
+    for (i=1; i<=6; i++) {
+      if (checkedAnswers[5] == "Q6A"+i) {
+        checkedAnswersCount[i-1] ++;
+      }
+    }
+    // Validate math is correct (remove this loop later).
+    for (i=0; i<5; i++) {
+      alert(checkedAnswersCount[i]);
+    }
   }
 }
