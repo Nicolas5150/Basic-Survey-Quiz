@@ -1,37 +1,53 @@
 window.addEventListener('load',init,false);
 function init() {
+  // Create global arrays that hold the ids of both the text box and span id
+  // These get passed in as ID names to validate the corresponding data.
+  textBoxArray = [
+    "firstNameTextBox",
+    "lastNameTextBox",
+    "emailAddressTextBox",
+    "phoneNumberTextBox",
+    "sulleyAddressTextBox"
+  ];
+  // Info will be appended to the corresponding span id
+  messageIDArray = [
+    "firstNameMessage",
+    "lastNameMessage",
+    "emailAddressMessage",
+    "phoneNumberMessage",
+    "sulleyAddressMessage"
+  ];
+
   // The event listener for each focus and blur on all text boxes.
-  // Pass the validateData() func the  corresponding textbox to check it and
-  // the span above it (ex. lastNameMessage - where text will append to.
-  var firstNameTextBox = document.getElementById("firstNameTextBox");
+  var firstNameTextBox = document.getElementById(textBoxArray[0]);
   firstNameTextBox.addEventListener("focus",function() {
-    formAssistAdd(event, "firstNameMessage", "");}, true);
+    formAssistAdd(event, messageIDArray[0], null);}, true);
   firstNameTextBox.addEventListener("blur",function(){
-    validateData("firstNameTextBox","firstNameMessage");}, true);
+    validateData(textBoxArray[0], messageIDArray[0]);}, true);
 
-  var lastNameTextBox = document.getElementById("lastNameTextBox");
+  var lastNameTextBox = document.getElementById(textBoxArray[1]);
   lastNameTextBox.addEventListener("focus",function() {
-    formAssistAdd(event, "lastNameMessage", "");}, true);
+    formAssistAdd(event, messageIDArray[1], null);}, true);
   lastNameTextBox.addEventListener("blur",function() {
-    validateData("lastNameTextBox", "lastNameMessage");}, true);
+    validateData(textBoxArray[1], messageIDArray[1]);}, true);
 
-  var emailAddressTextBox = document.getElementById("emailAddressTextBox");
+  var emailAddressTextBox = document.getElementById(textBoxArray[2]);
   emailAddressTextBox.addEventListener("focus",function() {
-    formAssistAdd(event, "emailAddressMessage", "");}, true);
+    formAssistAdd(event, messageIDArray[2], null);}, true);
   emailAddressTextBox.addEventListener("blur",function() {
-    validateData("emailAddressTextBox","emailAddressMessage");}, true);
+    validateData(textBoxArray[2], messageIDArray[2]);}, true);
 
-  var phoneNumberTextBox = document.getElementById("phoneNumberTextBox");
+  var phoneNumberTextBox = document.getElementById(textBoxArray[3]);
   phoneNumberTextBox.addEventListener("focus",function() {
-    formAssistAdd(event, "phoneNumberMessage", "");}, true);
+    formAssistAdd(event, messageIDArray[3], null);}, true);
   phoneNumberTextBox.addEventListener("blur",function() {
-    validateData("phoneNumberTextBox", "phoneNumberMessage");}, true);
+    validateData(textBoxArray[3], messageIDArray[3]);}, true);
 
-  var sulleyAddressTextBox = document.getElementById("sulleyAddressTextBox");
+  var sulleyAddressTextBox = document.getElementById(textBoxArray[4]);
   sulleyAddressTextBox.addEventListener("focus",function() {
-    formAssistAdd(event, "sulleyAddressMessage", "");}, true);
+    formAssistAdd(event, messageIDArray[4], null);}, true);
   sulleyAddressTextBox.addEventListener("blur",function() {
-    validateData("sulleyAddressTextBox", "sulleyAddressMessage");}, true);
+    validateData(textBoxArray[4], messageIDArray[4]);}, true);
 }
 
 // Add data / text to the div argument passed in.
@@ -106,13 +122,6 @@ function validateData(textBox, messageID) {
   var textBoxCheck = document.getElementById(textBox).value;
   var validate = "";
 
-
-  var lastNameTextBox = document.getElementById('lastNameTextBox').value;
-  var emailAddressTextBox = document.getElementById('emailAddressTextBox').value;
-  var phoneNumberTextBox = document.getElementById('phoneNumberTextBox').value;
-  var sulleyAddressTextBox = document.getElementById('sulleyAddressTextBox').value;
-
-
   // Switch Statment to check form data for errors
   // Append error message and assistant text to the corresponding textbox
   switch(textBox) {
@@ -181,36 +190,21 @@ function validateData(textBox, messageID) {
 // This function is called once the user has clicked submit
 function validateDataEntries() {
   event.preventDefault();
-
-  // Create arrays that hold the ids of both the text box and
-  // the span above it (ex. lastNameMessage).
-  // These get passed in and checked once more to validate the data.
-  // This will also eliminate the posibity of someone just hitting submit
   var validDataEntry = 0;
-  var textBoxArray = [
-    "firstNameTextBox",
-    "lastNameTextBox",
-    "emailAddressTextBox",
-    "phoneNumberTextBox",
-    "sulleyAddressTextBox"
-  ];
-  var messageIDArray = [
-    "firstNameMessage",
-    "lastNameMessage",
-    "emailAddressMessage",
-    "phoneNumberMessage",
-    "sulleyAddressMessage"
-  ];
-
+  var i;
   // Loop through all textboxes for valid data.
   for (i=0; i<=textBoxArray.length-1; i++) {
     if (validateData(textBoxArray[i], messageIDArray[i])) {
       validDataEntry ++;
     }
   }
-  // If all form data is valid then proceed.
-  if (validDataEntry == textBoxArray.length) {
-    alert("worked");
+  // If all form data is valid, proceed by creating a global user account array.
+  if (validDataEntry == textBoxArray.length)
+  {
+    validDataAccount = [];
+    for (i=0; i<=textBoxArray.length-1; i++) {
+      validDataAccount[i] = document.getElementById(textBoxArray[i]).value;
+    }
   }
 }
 
@@ -286,24 +280,32 @@ function changeQuestion(questionNumber, direction) {
 // Check the results or alert the user a radio button was not clicked
 function finish() {
   event.preventDefault();
-  var checked = false;
-  var i = 1;
+  var i, j, k=0, checked;
+  var checkedAnswers = [];
   // Check all questions 1-6 and find any unanswered
+  // Pull the radio button from the html via class "Qi" - i being question number
   for (i=1; i<=6; i++)
   {
     checked = false;
-    var answerPos = "Q"+i;
-    var answers = document.getElementsByClassName(answerPos);
+    var answers = document.getElementsByClassName("Q"+i);
     for (j=0; j<answers.length; j++)
     {
-      if (answers[j].checked)
+      // An answer was selected, store it in the array
+      if (answers[j].checked){
         checked = true;
+        checkedAnswers[k] = answers[j].value;
+        k ++;
+        break;
+      }
+      // No answer picked throughout all radio buttons of that specifc question
       if (j == answers.length-1 && checked === false)
         alert("Question " + i + " is not answered!");
     }
   }
-  // The answers were all selected so go ahead and validate
-  if (i == 6 && checked === true) {
+
+  // If the array is filled all the way then all questions had an answer.
+  // The checked answers can now be processed.
+  if (checkedAnswers.length == 6) {
     alert("All questions answered!");
   }
 }
