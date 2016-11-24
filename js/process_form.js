@@ -2,20 +2,10 @@ window.addEventListener('load',init,false);
 function init() {
   // Create global arrays that hold the ids of both the text box and span id.
   // These get passed in as id names to validate the corresponding data.
-  textBoxArray = [
-    "firstNameTextBox",
-    "lastNameTextBox",
-    "emailAddressTextBox",
-    "phoneNumberTextBox",
-    "sulleyAddressTextBox"
-  ];
-  messageIDArray = [
-    "firstNameMessage",
-    "lastNameMessage",
-    "emailAddressMessage",
-    "phoneNumberMessage",
-    "sulleyAddressMessage"
-  ];
+  textBoxArray = ["firstNameTextBox", "lastNameTextBox", "emailAddressTextBox",
+    "phoneNumberTextBox", "sulleyAddressTextBox"];
+  messageIDArray = ["firstNameMessage", "lastNameMessage", "emailAddressMessage",
+    "phoneNumberMessage", "sulleyAddressMessage"];
 
   // The event listener for each focus and blur (on all text boxes).
   var firstNameTextBox = document.getElementById(textBoxArray[0]);
@@ -49,57 +39,48 @@ function init() {
     validateData(textBoxArray[4], messageIDArray[4]);}, true);
 }
 
-// Append text to the span argument passed in as messageID.
-// Error parameter only is passed properly durring validateData().
+// Creates extra info for the user to better understand the textbox at hand.
 function formAssistAdd(event, messageID, error) {
+  var info = "";
   event.preventDefault();
-
-  // Remove all tags and text appended on current span.
   formAssistRemove(messageID);
 
   // Change color to default and instantiate info text to be appended to span.
-  document.getElementById(messageID).style.color = "black";
-  var info = "";
+  document.getElementById(messageID).style.color = "rgba(205,245,250, .8)";
   if (error !== null)
   {
     representationIcon(messageID, "error");
     // Change color of error message to red
-    document.getElementById(messageID).style.color = "red";
-    info = "Incorrect ";
+    document.getElementById(messageID).style.color = "#bf6767";
+    info = " Incorrect ";
   }
 
   // Switch Statment to append correct example text to messageID span.
   switch(messageID) {
     case ("firstNameMessage"):
-      info += "Ex. John";
+      info += "- Ex. Bruce";
       break;
 
     case "lastNameMessage":
-      info += "Ex. Doe";
+      info += "- Ex. Wayne";
       break;
 
     case "emailAddressMessage":
-      info += "Ex. johndoe@gmail.com";
+      info += "- Ex. batman@gmail.com";
       break;
 
     case "phoneNumberMessage":
-      info += "Ex. 555-555-5555";
+      info += "- Ex. 735-185-7301";
       break;
 
     case "sulleyAddressMessage":
-      info += "Ex. http://sulley.cah.ucf.edu/~jo555555";
+      info += "- Ex. http://sulley.cah.ucf.edu/~br228626";
       break;
 
     default:
       break;
   }
-
-  // Actual appending of text to the messageID span.
-  var para = document.createElement("span");
-  var node = document.createTextNode(info);
-  para.appendChild(node);
-  var element = document.getElementById(messageID);
-  element.appendChild(para);
+  addText(info, messageID, 1);
 }
 
 // Remove any data on the messageID span argument passed in.
@@ -110,73 +91,51 @@ function formAssistRemove(messageID) {
   }
 }
 
-// Once the user has unclikced the text box then validate the specifc data.
+// Once user has unclikced the text box then validate the specifc data.
 function validateData(textBox, messageID) {
   formAssistRemove(messageID);
-  var textBoxCheck = document.getElementById(textBox).value;
-  var validate = "";
+  var textBoxValue = document.getElementById(textBox).value, validate = "";
 
   // Switch Statment to check form data for errors.
   switch(textBox) {
-    // Validate first or last name.
     case "firstNameTextBox":
     case "lastNameTextBox":
       validate = /^[a-zA-Z]*$/;
-      if (!validate.test(textBoxCheck) || textBoxCheck === "") {
-        formAssistAdd(event, messageID, "error");
-      }
-      else {
-        representationIcon(messageID, null);
-        return true;
-      }
-      return false;
+      return validateTextbox(validate, messageID, textBoxValue);
 
-    // Validate email.
     case "emailAddressTextBox":
       validate = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
-      if (!validate.test(textBoxCheck)) {
-        formAssistAdd(event, messageID, "error");
-      }
-      else {
-        representationIcon(messageID, null);
-        return true;
-      }
-      return false;
+      return validateTextbox(validate, messageID, textBoxValue);
 
-    // Validate phone.
     case "phoneNumberTextBox":
       validate = /^\d{3}\-\d{3}\-\d{4}/i;
-      if (!validate.test(textBoxCheck)) {
-        formAssistAdd(event, messageID, "error");
-      }
-      else {
-        representationIcon(messageID, null);
-        return true;
-      }
-      return false;
+      return validateTextbox(validate, messageID, textBoxValue);
 
-    // Validate sulley address.
     case "sulleyAddressTextBox":
       validate = /^\d{3}\-\d{3}\-\d{4}/i;
-      if (!validate.test(textBoxCheck)) {
-        formAssistAdd(event, messageID, "error");
-      }
-      else {
-        representationIcon(messageID, null);
-        return true;
-      }
-      return false;
+      return validateTextbox(validate, messageID, textBoxValue);
 
     default:
       return false;
   }
 }
 
+// Validate textbox against the related validation requirements passed in
+function validateTextbox(validate, messageID, textBoxValue) {
+  if (!validate.test(textBoxValue) || textBoxValue === "") {
+    formAssistAdd(event, messageID, "error");
+  }
+  else {
+    representationIcon(messageID, null);
+    return true;
+  }
+  return false;
+}
+
 // This function is called once the user has clicked the submit button.
 function validateDataEntries() {
+  var validDataEntry = 0, i;
   event.preventDefault();
-  var validDataEntry = 0;
-  var i;
   // Loop through all textboxes for valid data.
   for (i=0; i<=textBoxArray.length-1; i++) {
     if (validateData(textBoxArray[i], messageIDArray[i])) {
@@ -184,116 +143,80 @@ function validateDataEntries() {
     }
   }
   // If all form data is valid, proceed by creating a global user account array.
-  if (validDataEntry == textBoxArray.length)
-  {
+  if (validDataEntry == textBoxArray.length) {
     validDataAccount = [];
     for (i=0; i<=textBoxArray.length-1; i++) {
       validDataAccount[i] = document.getElementById(textBoxArray[i]).value;
     }
+    // Hide the form data and show the survey and current question bubbles.
+    document.getElementById("personalInfoWrapper").style.display = "none";
+    document.getElementById("surveyWrapper").style.display = "block";
+    addImage("Q1Circle", "img/current-question.png", "questionOn", "Question Number", "20", "20");
+    for(i=2; i<=6; i++) {
+    addImage("Q"+i+"Circle", "img/other-question.png", "questionOn", "Question Number", "20", "20");
+    }
   }
 }
 
+// Create which image to be added to text box area.
 function representationIcon(messageID, error) {
-  var image = "";
+  var imageIcon = "";
   if (error === null) {
-    imageIcon = "img/Correct.png";
+    imageIcon = "img/correct.png";
   }
   else {
-    imageIcon = "img/Incorrect.JPG";
+    imageIcon = "img/incorrect.png";
   }
+  addImage(messageID, imageIcon, "textboxIcon", "Textbox Icon", 24, 12);
+}
 
-  // Apend the image to the span tag
+// Append an image to the screen
+function addImage(where, what, className, altName, width, height) {
   var img = new Image();
-  img.setAttribute("class","largeImage");
-  img.setAttribute("alt","Form Icon");
-  img.setAttribute("width", "24");
-  img.setAttribute("height", "12");
-  img.src = imageIcon;
-  var pic = document.getElementById(messageID);
+  img.setAttribute("class", className);
+  img.setAttribute("alt", altName);
+  img.setAttribute("width", width);
+  img.setAttribute("height", height);
+  img.src = what;
+  var pic = document.getElementById(where);
   pic.appendChild(img);
 }
 
 // SURVEY SECTION
 // Change question to previous or next.
 function changeQuestion(questionNumber, direction) {
+  var question = Number(questionNumber);
   event.preventDefault();
 
-  // Switch Statment to hide or show question(s).
-  switch(questionNumber) {
-    // Can only go forward since it's the start.
-    case "Q1":
-      document.getElementById("questionOne").style.display = "none";
-      document.getElementById("questionTwo").style.display = "block";
-      break;
-
-    case "Q2":
-      if (direction === "forward") {
-        document.getElementById("questionTwo").style.display = "none";
-        document.getElementById("questionThree").style.display = "block";
-      }
-      else {
-        document.getElementById("questionTwo").style.display = "none";
-        document.getElementById("questionOne").style.display = "block";
-      }
-      break;
-
-    case "Q3":
-      if (direction === "forward") {
-        document.getElementById("questionThree").style.display = "none";
-        document.getElementById("questionFour").style.display = "block";
-      }
-      else {
-        document.getElementById("questionThree").style.display = "none";
-        document.getElementById("questionTwo").style.display = "block";
-      }
-      break;
-
-    case "Q4":
-      if (direction === "forward") {
-        document.getElementById("questionFour").style.display = "none";
-        document.getElementById("questionFive").style.display = "block";
-      }
-      else {
-        document.getElementById("questionFour").style.display = "none";
-        document.getElementById("questionThree").style.display = "block";
-      }
-      break;
-
-    case "Q5":
-      if (direction === "forward") {
-        document.getElementById("questionFive").style.display = "none";
-        document.getElementById("questionSix").style.display = "block";
-      }
-      else {
-        document.getElementById("questionFive").style.display = "none";
-        document.getElementById("questionFour").style.display = "block";
-      }
-      break;
-
-    // Can only go back since it's the end.
-    case "Q6":
-      document.getElementById("questionSix").style.display = "none";
-      document.getElementById("questionFive").style.display = "block";
-      break;
-
-    default:
-      break;
+  if (direction === "forward") {
+    document.getElementById("Q"+question).style.display = "none";
+    document.getElementById("Q"+(question+1)).style.display = "block";
+    formAssistRemove("Q"+question+"Circle");
+    formAssistRemove("Q"+(question+1)+"Circle");
+    addImage("Q"+question+"Circle", "img/other-question.png", "questionOn", "Question Number", "20", "20");
+    addImage("Q"+(question+1)+"Circle", "img/current-question.png", "questionOn", "Question Number", "20", "20");
+  }
+  else {
+    document.getElementById("Q"+question).style.display = "none";
+    document.getElementById("Q"+(question-1)).style.display = "block";
+    formAssistRemove("Q"+question+"Circle");
+    formAssistRemove("Q"+(question-1)+"Circle");
+    addImage("Q"+question+"Circle", "img/other-question.png", "questionOn", "Question Number", "20", "20");
+    addImage("Q"+(question-1)+"Circle", "img/current-question.png", "questionOn", "Question Number", "20", "20");
   }
 }
 
 // Check the results or alert the user a radio button was not clicked.
 function finish() {
-  event.preventDefault();
   var i, j, k=0, l=0, checked;
-  var checkedAnswers = [], checkedAnswersCount = [], textAnswers = [];
+  var checkedAnswers = [], textAnswers = [], checkedAnswersCount = [];
+  event.preventDefault();
 
   // Pull radio button data from the html class "Qi"; i being question number.
-  for (i=1; i<=6; i++)
-  {
+  for (i=1; i<=6; i++) {
     checked = false;
     var answers = document.getElementsByClassName("Q"+i);
-    for (j=0; j<answers.length; j++)
-    {
+    for (j=0; j<answers.length; j++) {
       // An answer was selected, store the value and the text (data) after it
       if (answers[j].checked) {
         checked = true;
@@ -311,17 +234,14 @@ function finish() {
 
   // If the array is filled (with 6 answers), data can be processed.
   var listLength = checkedAnswers.length;
-  if (listLength == 6)
-  {
+  if (listLength == 6) {
     j = 1;
-    alert("All questions answered!");
     // Array order for which person gets the vote.
     // Ben-Affleck:0, Christian-Bale:1, George-Clooney:2, Kevin-Conroy:3, Adam-West:4
     // Questions 1-5.
-    for (i=0; i<listLength-1; i++)
-    {
+    for (i=0; i<listLength-1; i++) {
       checkedAnswersCount[i] = 0;
-      if(checkedAnswers[i] == "Q"+j+"A1") {
+      if (checkedAnswers[i] == "Q"+j+"A1") {
         checkedAnswersCount[i] ++ ;
       }
       j ++;
@@ -336,7 +256,7 @@ function finish() {
     // HighestPos will be relative to the array positon storing higest count
     var highestPos = 0, highestCount = checkedAnswersCount[0];
     for (i=0; i<4; i++) {
-      if (checkedAnswersCount[i] < checkedAnswersCount[i+1]){
+      if (checkedAnswersCount[i] < checkedAnswersCount[i+1]) {
         highestPos = i+1;
         highestCount = checkedAnswersCount[i+1];
       }
@@ -345,100 +265,84 @@ function finish() {
     for (i=0; i<5; i++) {
       if(i != highestPos) {
         if (highestCount == checkedAnswersCount[i]) {
-          // Insert image of weird batman pic here
-          alert("two equal vals");
           highestCount = -1;
           break;
         }
       }
     }
-    reviewAnswers(textAnswers);
-    alert(highestPos);
-    alert(highestCount);
+    // Hide the survey and append data to resultsWrapper.
+    document.getElementById("surveyWrapper").style.display = "none";
+    document.getElementById("resultsWrapper").style.display = "block";
+    // Show Answers selected by user.
+    addText(textAnswers, "resultsWrapper", textAnswers.length);
+    // Show user proile data.
+    createValidDataAccount();
     // Make img bassed on array position, if two are equal use 5 for Val Kilmer.
-    if (highestCount != -1){
+    if (highestCount != -1) {
       createImage(highestPos);
     }
     else {
       createImage(5);
     }
+    // Show relative link to batman image.
+    createCaption(highestPos);
   }
 }
 
-// Append the image based off of value given by highestPos
-function createImage(highestPos){
-  showValidDataAccount();
-
+// Create the image based off of value given by highestPos
+function createImage(highestPos) {
   // Stores the location of all the images.
-  // Ben-Affleck:0, Christian-Bale:1, George-Clooney:2, Kevin-Conroy:3, Adam-West:4
-  // Val-Kilmer:5 - only on equal count values.
-  var batmanImg = [
-      'img/Ben-Affleck.jpg',
-      "img/Christian-Bale.jpg",
-      "img/George-Clooney.png",
-      "img/Kevin-Conroy.jpg",
-      "img/Adam-West.jpg",
-      "img/Val-Kilmer.jpg"
-    ];
-
-  // http://stackoverflow.com/questions/12287856/insert-image-object-into-html
-  // Append the image to the imgHere div
-  var img = new Image();
-  img.setAttribute("class","largeImage");
-  img.setAttribute("alt","Batman Picture");
-  img.setAttribute("width", "auto");
-  img.setAttribute("height", "auto");
-  img.src = batmanImg[highestPos];
-  var pic = document.getElementById('surveyWrapper');
-  pic.appendChild(img);
-
-  createCaption(highestPos);
+  var batmanImg = ['img/ben-affleck.jpg', "img/christian-bale.jpg",
+      "img/george-clooney.png", "img/kevin-conroy.jpg", "img/adam-west.jpg",
+      "img/val-kilmer.jpg"];
+  addImage('resultsWrapper', batmanImg[highestPos], "batmanPicked", "Batman Picture", "auto", "auto");
 }
 
-// Append to the screen the users profile info
-function showValidDataAccount() {
-  var personalInfoTag = [
-      'First Name: ',
-      "Last Name: ",
-      "Email Address: ",
-      "Phone Number: ",
-      "Sulley Address: "
-    ];
-
-  for(i=0; i<validDataAccount.length; i++) {
-    var para = document.createElement("p");
-    var node = document.createTextNode(personalInfoTag[i] + validDataAccount[i]);
-    para.appendChild(node);
-    var element = document.getElementById("surveyWrapper");
-    element.appendChild(para);
-  }
+// Create the users profile info
+function createValidDataAccount() {
+  var personalInfoTag = ['First Name: ', "Last Name: ", "Email Address: ",
+    "Phone Number: ", "Sulley Address: "];
+  addText(personalInfoTag, "resultsWrapper", validDataAccount.length);
 }
 
-// Append the answers selected by the user.
-function reviewAnswers(textAnswers){
-  for(i=0; i<textAnswers.length; i++) {
-    var para = document.createElement("p");
-    var node = document.createTextNode("Answer " +(i+1)+ " "+textAnswers[i]);
-    para.appendChild(node);
-    var element = document.getElementById("surveyWrapper");
-    element.appendChild(para);
-  }
-}
-
-// Append the corresponding caption, which is relative link to image.
+// Create the corresponding caption, which is relative link to the image.
 function createCaption(highestPos) {
   var batmanImgURL = [
-      'img/Ben-Affleck.jpg',
-      "img/Christian-Bale.jpg",
-      "img/George-Clooney.png",
-      "img/Kevin-Conroy.jpg",
-      "img/Adam-West.jpg",
-      "img/Val-Kilmer.jpg"
+      'img/ben-affleck.jpg',
+      "img/christian-bale.jpg",
+      "img/george-clooney.png",
+      "img/kevin-conroy.jpg",
+      "img/adam-west.jpg",
+      "img/val-kilmer.jpg"
     ];
+    addText(batmanImgURL[highestPos], "resultsWrapper", 1);
+}
 
-    var para = document.createElement("p");
-    var node = document.createTextNode(batmanImgURL[highestPos]);
+// Append text to the screen.
+function addText(what, where, loopControl) {
+  var node, para;
+  for(i=0; i<loopControl; i++) {
+    if (where != "resultsWrapper"){
+      para = document.createElement("span");
+    }
+    else {
+      para = document.createElement("p");
+    }
+
+    // Show relative link to batman image.
+    if (loopControl == 1) {
+      node = document.createTextNode(what);
+    }
+    // Show Answers selected by user.
+    if (loopControl == 6) {
+      node = document.createTextNode("Answer " +(i+1)+ " "+what[i]);
+    }
+    // Show user proile data.
+    if (loopControl == 5) {
+      node = document.createTextNode(what[i] + validDataAccount[i]);
+    }
     para.appendChild(node);
-    var element = document.getElementById("surveyWrapper");
+    var element = document.getElementById(where);
     element.appendChild(para);
+  }
 }
