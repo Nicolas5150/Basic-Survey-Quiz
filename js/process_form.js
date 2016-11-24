@@ -62,8 +62,7 @@ function formAssistAdd(event, messageID, error) {
   var info = "";
   if (error !== null)
   {
-    // APPEND A X MARK SIGN HERE!!!!!!!!
-    // APPEND A X MARK SIGN HERE!!!!!!!!
+    representationIcon(messageID, "error");
     // Change color of error message to red
     document.getElementById(messageID).style.color = "red";
     info = "Incorrect ";
@@ -126,10 +125,8 @@ function validateData(textBox, messageID) {
       if (!validate.test(textBoxCheck) || textBoxCheck === "") {
         formAssistAdd(event, messageID, "error");
       }
-      else
-      {
-        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
-        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+      else {
+        representationIcon(messageID, null);
         return true;
       }
       return false;
@@ -140,10 +137,8 @@ function validateData(textBox, messageID) {
       if (!validate.test(textBoxCheck)) {
         formAssistAdd(event, messageID, "error");
       }
-      else
-      {
-        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
-        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+      else {
+        representationIcon(messageID, null);
         return true;
       }
       return false;
@@ -154,10 +149,8 @@ function validateData(textBox, messageID) {
       if (!validate.test(textBoxCheck)) {
         formAssistAdd(event, messageID, "error");
       }
-      else
-      {
-        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
-        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+      else {
+        representationIcon(messageID, null);
         return true;
       }
       return false;
@@ -168,10 +161,8 @@ function validateData(textBox, messageID) {
       if (!validate.test(textBoxCheck)) {
         formAssistAdd(event, messageID, "error");
       }
-      else
-      {
-        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
-        // APPEND A CHECK MARK SIGN HERE!!!!!!!!
+      else {
+        representationIcon(messageID, null);
         return true;
       }
       return false;
@@ -200,6 +191,26 @@ function validateDataEntries() {
       validDataAccount[i] = document.getElementById(textBoxArray[i]).value;
     }
   }
+}
+
+function representationIcon(messageID, error) {
+  var image = "";
+  if (error === null) {
+    imageIcon = "img/Correct.png";
+  }
+  else {
+    imageIcon = "img/Incorrect.JPG";
+  }
+
+  // Apend the image to the span tag
+  var img = new Image();
+  img.setAttribute("class","largeImage");
+  img.setAttribute("alt","Form Icon");
+  img.setAttribute("width", "24");
+  img.setAttribute("height", "12");
+  img.src = imageIcon;
+  var pic = document.getElementById(messageID);
+  pic.appendChild(img);
 }
 
 // SURVEY SECTION
@@ -274,7 +285,7 @@ function changeQuestion(questionNumber, direction) {
 function finish() {
   event.preventDefault();
   var i, j, k=0, l=0, checked;
-  var checkedAnswers = [], checkedAnswersCount = [];
+  var checkedAnswers = [], checkedAnswersCount = [], textAnswers = [];
 
   // Pull radio button data from the html class "Qi"; i being question number.
   for (i=1; i<=6; i++)
@@ -283,10 +294,11 @@ function finish() {
     var answers = document.getElementsByClassName("Q"+i);
     for (j=0; j<answers.length; j++)
     {
-      // An answer was selected, store it in the array
+      // An answer was selected, store the value and the text (data) after it
       if (answers[j].checked) {
         checked = true;
         checkedAnswers[k] = answers[j].value;
+        textAnswers[k] = answers[j].nextSibling.data;
         k ++;
         break;
       }
@@ -320,9 +332,113 @@ function finish() {
         checkedAnswersCount[i-1] ++;
       }
     }
-    // Validate math is correct (remove this loop later).
+    // Find highest count of answers
+    // HighestPos will be relative to the array positon storing higest count
+    var highestPos = 0, highestCount = checkedAnswersCount[0];
+    for (i=0; i<4; i++) {
+      if (checkedAnswersCount[i] < checkedAnswersCount[i+1]){
+        highestPos = i+1;
+        highestCount = checkedAnswersCount[i+1];
+      }
+    }
+    // If the user put in a combination resulting in an equal values.
     for (i=0; i<5; i++) {
-      alert(checkedAnswersCount[i]);
+      if(i != highestPos) {
+        if (highestCount == checkedAnswersCount[i]) {
+          // Insert image of weird batman pic here
+          alert("two equal vals");
+          highestCount = -1;
+          break;
+        }
+      }
+    }
+    reviewAnswers(textAnswers);
+    alert(highestPos);
+    alert(highestCount);
+    // Make img bassed on array position, if two are equal use 5 for Val Kilmer.
+    if (highestCount != -1){
+      createImage(highestPos);
+    }
+    else {
+      createImage(5);
     }
   }
+}
+
+// Append the image based off of value given by highestPos
+function createImage(highestPos){
+  showValidDataAccount();
+
+  // Stores the location of all the images.
+  // Ben-Affleck:0, Christian-Bale:1, George-Clooney:2, Kevin-Conroy:3, Adam-West:4
+  // Val-Kilmer:5 - only on equal count values.
+  var batmanImg = [
+      'img/Ben-Affleck.jpg',
+      "img/Christian-Bale.jpg",
+      "img/George-Clooney.png",
+      "img/Kevin-Conroy.jpg",
+      "img/Adam-West.jpg",
+      "img/Val-Kilmer.jpg"
+    ];
+
+  // http://stackoverflow.com/questions/12287856/insert-image-object-into-html
+  // Append the image to the imgHere div
+  var img = new Image();
+  img.setAttribute("class","largeImage");
+  img.setAttribute("alt","Batman Picture");
+  img.setAttribute("width", "auto");
+  img.setAttribute("height", "auto");
+  img.src = batmanImg[highestPos];
+  var pic = document.getElementById('surveyWrapper');
+  pic.appendChild(img);
+
+  createCaption(highestPos);
+}
+
+// Append to the screen the users profile info
+function showValidDataAccount() {
+  var personalInfoTag = [
+      'First Name: ',
+      "Last Name: ",
+      "Email Address: ",
+      "Phone Number: ",
+      "Sulley Address: "
+    ];
+
+  for(i=0; i<validDataAccount.length; i++) {
+    var para = document.createElement("p");
+    var node = document.createTextNode(personalInfoTag[i] + validDataAccount[i]);
+    para.appendChild(node);
+    var element = document.getElementById("surveyWrapper");
+    element.appendChild(para);
+  }
+}
+
+// Append the answers selected by the user.
+function reviewAnswers(textAnswers){
+  for(i=0; i<textAnswers.length; i++) {
+    var para = document.createElement("p");
+    var node = document.createTextNode("Answer " +(i+1)+ " "+textAnswers[i]);
+    para.appendChild(node);
+    var element = document.getElementById("surveyWrapper");
+    element.appendChild(para);
+  }
+}
+
+// Append the corresponding caption, which is relative link to image.
+function createCaption(highestPos) {
+  var batmanImgURL = [
+      'img/Ben-Affleck.jpg',
+      "img/Christian-Bale.jpg",
+      "img/George-Clooney.png",
+      "img/Kevin-Conroy.jpg",
+      "img/Adam-West.jpg",
+      "img/Val-Kilmer.jpg"
+    ];
+
+    var para = document.createElement("p");
+    var node = document.createTextNode(batmanImgURL[highestPos]);
+    para.appendChild(node);
+    var element = document.getElementById("surveyWrapper");
+    element.appendChild(para);
 }
