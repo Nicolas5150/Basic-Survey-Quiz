@@ -13,30 +13,30 @@
     </header>
 
     <div id="personalInfoWrapper">
-      <h2 id="personalInfoTitle"> Personal Info </h2>
-      <form action="#" method="post">
+      <h2 class="titleBar"> Personal Info </h2>
+      <form action="#" method="post" id="textboxWrapper">
         <!-- Personal Info Form -->
         <label>First Name </label>
         <span id="firstNameMessage"> </span>
-        <input class="textBox" id="firstNameTextBox" type="text"/>
+        <input class="textBox" id="firstNameTextBox" type="text" maxlength="100"/>
 
         <label>Last Name </label>
         <span id="lastNameMessage"> </span>
-        <input class="textBox" id="lastNameTextBox" type="text"/>
+        <input class="textBox" id="lastNameTextBox" type="text" maxlength="100"/>
 
         <label>Email Address </label>
         <span id="emailAddressMessage"> </span>
-        <input class="textBox" id="emailAddressTextBox" type="text"/>
+        <input class="textBox" id="emailAddressTextBox" type="text" maxlength="100"/>
 
         <label>Phone Number </label>
         <span id="phoneNumberMessage"> </span>
-        <input class="textBox" id="phoneNumberTextBox" type="text"/>
+        <input class="textBox" id="phoneNumberTextBox" type="text" maxlength="12"/>
 
         <label>Sulley Address </label>
         <span id="sulleyAddressMessage"> </span>
-        <input class="textBox" id="sulleyAddressTextBox" type="text"/>
+        <input class="textBox" id="sulleyAddressTextBox" type="text" maxlength="100"/>
 
-        <button class="button" value="submit" onclick="validateDataEntries()">Submit</button>
+        <button class="submitButton" value="submit" onclick="validateDataEntries()">Submit</button>
       </form>
     </div>
 
@@ -49,6 +49,7 @@
       <div id="Q6Circle"> </div><br/>
     </div>
     <div id="surveyWrapper">
+    <h2 class="titleBar"> Questions </h2>
       <form action="#" method="post">
         <!-- Personal Info Form -->
         <span id="Q1">
@@ -57,7 +58,7 @@
             Yes <br/>
           <input type="radio" name="questionOne" value="Q1A2" class="radioButtons Q1"/>
             No <br/>
-          <button class="button" value="submit" onclick="changeQuestion('1','forward')">Forward</button> <br/>
+          <button class="nextButton" value="submit" onclick="changeQuestion('1','forward')">Forward</button> <br/>
         </span>
 
         <span id="Q2">
@@ -66,8 +67,8 @@
             Darkness <br/>
           <input type="radio" name="questionTwo" value="Q2A2" class="radioButtons Q2"/>
             Light <br/>
-          <button class="button" value="submit" onclick="changeQuestion('2','back')">Back</button>
-          <button class="button" value="submit" onclick="changeQuestion('2','forward')">Forward</button> <br/>
+          <button class="backButton" value="submit" onclick="changeQuestion('2','back')">Back</button>
+          <button class="nextButton" value="submit" onclick="changeQuestion('2','forward')">Forward</button> <br/>
         </span>
 
         <span id="Q3">
@@ -76,8 +77,8 @@
             Yes <br/>
           <input type="radio" name="questionThree" value="Q3A2" class="radioButtons Q3"/>
             No <br/>
-          <button class="button" value="submit" onclick="changeQuestion('3','back')">Back</button>
-          <button class="button" value="submit" onclick="changeQuestion('3','forward')">Forward</button> <br/>
+          <button class="backButton" value="submit" onclick="changeQuestion('3','back')">Back</button>
+          <button class="nextButton" value="submit" onclick="changeQuestion('3','forward')">Forward</button> <br/>
         </span>
 
         <span id="Q4">
@@ -86,8 +87,8 @@
             Animated <br/>
           <input type="radio" name="questionFour" value="Q4A2" class="radioButtons Q4"/>
             Live <br/>
-          <button class="button" value="submit" onclick="changeQuestion('4','back')">Back</button>
-          <button class="button" value="submit" onclick="changeQuestion('4','forward')">Forward</button> <br/>
+          <button class="backButton" value="submit" onclick="changeQuestion('4','back')">Back</button>
+          <button class="nextButton" value="submit" onclick="changeQuestion('4','forward')">Forward</button> <br/>
         </span>
 
         <span id="Q5">
@@ -96,8 +97,8 @@
             Yes <br/>
           <input type="radio" name="questionFive" value="Q5A2" class="radioButtons Q5"/>
             No <br/>
-          <button class="button" value="submit" onclick="changeQuestion('5','back')">Back</button>
-          <button class="button" value="submit" onclick="changeQuestion('5','forward')">Forward</button> <br/>
+          <button class="backButton" value="submit" onclick="changeQuestion('5','back')">Back</button>
+          <button class="nextButton" value="submit" onclick="changeQuestion('5','forward')">Forward</button> <br/>
         </span>
 
         <span id="Q6">
@@ -112,8 +113,8 @@
             1992 <br/>
           <input type="radio" name="questionSix" value="Q6A5" class="radioButtons Q6"/>
             1966 <br/>
-          <button class="button" value="submit" onclick="changeQuestion('6','back')">Back</button>
-          <button class="button" value="submit" onclick="finish()">Finish</button> <br/>
+          <button class="backButton" value="submit" onclick="changeQuestion('6','back')">Back</button>
+          <button class="submitButton" value="submit" onclick="finish()">Finish</button> <br/>
         </span>
       </form>
     </div>
