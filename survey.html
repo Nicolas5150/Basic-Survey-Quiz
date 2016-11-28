@@ -49,77 +49,90 @@
       <div id="Q6Circle"> </div><br/>
     </div>
     <div id="surveyWrapper">
-    <h2 class="titleBar"> Questions </h2>
+    <h2 class="titleBar questionBox"> Questions </h2>
       <form action="#" method="post">
         <!-- Personal Info Form -->
-        <span id="Q1">
-          <label>Question One: <br/> Do you enjoy new things? </label> <br/>
-          <input type="radio" name="questionOne" value="Q1A1" class="radioButtons Q1" id="one"/>
-            Yes <br/>
-          <input type="radio" name="questionOne" value="Q1A2" class="radioButtons Q1"/>
-            No <br/>
-          <button class="nextButton" value="submit" onclick="changeQuestion('1','forward')">Forward</button> <br/>
-        </span>
+        <div id="Q1">
+          <div class="questionBox">
+            <label>Question One: <br/> Do you enjoy new things? </label> <br/>
+            <input type="radio" name="questionOne" value="Q1A1" class="radioButtons Q1" id="one"/>
+              Yes <br/>
+            <input type="radio" name="questionOne" value="Q1A2" class="radioButtons Q1"/>
+              No <br/>
+            <button class="nextButton" value="submit" onclick="changeQuestion('1','forward')">Forward</button> <br/>
+          </div>
+        </div>
 
-        <span id="Q2">
-          <label>Question Two: <br/> Do you enjoy darkness or light? </label> <br/>
-          <input type="radio" name="questionTwo" value="Q2A1" class="radioButtons Q2"/>
-            Darkness <br/>
-          <input type="radio" name="questionTwo" value="Q2A2" class="radioButtons Q2"/>
-            Light <br/>
-          <button class="backButton" value="submit" onclick="changeQuestion('2','back')">Back</button>
-          <button class="nextButton" value="submit" onclick="changeQuestion('2','forward')">Forward</button> <br/>
-        </span>
+        <div id="Q2">
+          <div class="questionBox">
+            <label>Question Two: <br/> Do you enjoy darkness or light? </label> <br/>
+            <input type="radio" name="questionTwo" value="Q2A1" class="radioButtons Q2"/>
+              Darkness <br/>
+            <input type="radio" name="questionTwo" value="Q2A2" class="radioButtons Q2"/>
+              Light <br/>
+            <button class="backButton" value="submit" onclick="changeQuestion('2','back')">Back</button>
+            <button class="nextButton" value="submit" onclick="changeQuestion('2','forward')">Forward</button> <br/>
+          </div>
+        </div>
 
-        <span id="Q3">
-          <label>Question Three: <br/> Do you find yourself charming? </label> <br/>
-          <input type="radio" name="questionThree" value="Q3A1" class="radioButtons Q3"/>
-            Yes <br/>
-          <input type="radio" name="questionThree" value="Q3A2" class="radioButtons Q3"/>
-            No <br/>
-          <button class="backButton" value="submit" onclick="changeQuestion('3','back')">Back</button>
-          <button class="nextButton" value="submit" onclick="changeQuestion('3','forward')">Forward</button> <br/>
-        </span>
+        <div id="Q3">
+          <div class="questionBox">
+            <label>Question Three: <br/> Do you find yourself charming? </label> <br/>
+            <input type="radio" name="questionThree" value="Q3A1" class="radioButtons Q3"/>
+              Yes <br/>
+            <input type="radio" name="questionThree" value="Q3A2" class="radioButtons Q3"/>
+              No <br/>
+            <button class="backButton" value="submit" onclick="changeQuestion('3','back')">Back</button>
+            <button class="nextButton" value="submit" onclick="changeQuestion('3','forward')">Forward</button> <br/>
+          </div>
+        </div>
 
-        <span id="Q4">
-          <label>Question Four: <br/> Do you enjoy animated or live? </label> <br/>
-          <input type="radio" name="questionFour" value="Q4A1" class="radioButtons Q4"/>
-            Animated <br/>
-          <input type="radio" name="questionFour" value="Q4A2" class="radioButtons Q4"/>
-            Live <br/>
-          <button class="backButton" value="submit" onclick="changeQuestion('4','back')">Back</button>
-          <button class="nextButton" value="submit" onclick="changeQuestion('4','forward')">Forward</button> <br/>
-        </span>
+        <div id="Q4">
+          <div class="questionBox">
+            <label>Question Four: <br/> Do you enjoy animated or live movies? </label> <br/>
+            <input type="radio" name="questionFour" value="Q4A1" class="radioButtons Q4"/>
+              Animated <br/>
+            <input type="radio" name="questionFour" value="Q4A2" class="radioButtons Q4"/>
+              Live <br/>
+            <button class="backButton" value="submit" onclick="changeQuestion('4','back')">Back</button>
+            <button class="nextButton" value="submit" onclick="changeQuestion('4','forward')">Forward</button> <br/>
+          </div>
+        </div>
 
-        <span id="Q5">
-          <label>Question Five: <br/> Do you find yourself funny? </label> <br/>
-          <input type="radio" name="questionFive" value="Q5A1" class="radioButtons Q5"/>
-            Yes <br/>
-          <input type="radio" name="questionFive" value="Q5A2" class="radioButtons Q5"/>
-            No <br/>
-          <button class="backButton" value="submit" onclick="changeQuestion('5','back')">Back</button>
-          <button class="nextButton" value="submit" onclick="changeQuestion('5','forward')">Forward</button> <br/>
-        </span>
+        <div id="Q5">
+          <div class="questionBox">
+            <label>Question Five: <br/> Do you find yourself funny? </label> <br/>
+            <input type="radio" name="questionFive" value="Q5A1" class="radioButtons Q5"/>
+              Yes <br/>
+            <input type="radio" name="questionFive" value="Q5A2" class="radioButtons Q5"/>
+              No <br/>
+            <button class="backButton" value="submit" onclick="changeQuestion('5','back')">Back</button>
+            <button class="nextButton" value="submit" onclick="changeQuestion('5','forward')">Forward</button> <br/>
+          </div>
+        </div>
 
-        <span id="Q6">
-          <label>Question Six: <br/> Favorite year? </label> <br/>
-          <input type="radio" name="questionSix" value="Q6A1" class="radioButtons Q6"/>
-            2016 <br/>
-          <input type="radio" name="questionSix" value="Q6A2" class="radioButtons Q6"/>
-            2008 <br/>
-          <input type="radio" name="questionSix" value="Q6A3" class="radioButtons Q6"/>
-            1997 <br/>
-          <input type="radio" name="questionSix" value="Q6A4" class="radioButtons Q6"/>
-            1992 <br/>
-          <input type="radio" name="questionSix" value="Q6A5" class="radioButtons Q6"/>
-            1966 <br/>
-          <button class="backButton" value="submit" onclick="changeQuestion('6','back')">Back</button>
-          <button class="submitButton" value="submit" onclick="finish()">Finish</button> <br/>
-        </span>
+        <div id="Q6">
+          <div class="questionBox">
+            <label>Question Six: <br/> Favorite year? </label> <br/>
+            <input type="radio" name="questionSix" value="Q6A1" class="radioButtons Q6"/>
+              2016 <br/>
+            <input type="radio" name="questionSix" value="Q6A2" class="radioButtons Q6"/>
+              2008 <br/>
+            <input type="radio" name="questionSix" value="Q6A3" class="radioButtons Q6"/>
+              1997 <br/>
+            <input type="radio" name="questionSix" value="Q6A4" class="radioButtons Q6"/>
+              1992 <br/>
+            <input type="radio" name="questionSix" value="Q6A5" class="radioButtons Q6"/>
+              1966 <br/>
+          </div>
+            <button class="backButton" value="submit" onclick="changeQuestion('6','back')">Back</button>
+            <button class="submitButton" value="submit" onclick="finish()">Finish</button> <br/>
+        </div>
       </form>
     </div>
 
     <div id="resultsWrapper">
+      </div>
     </div>
 
     <footer>

@@ -280,28 +280,28 @@ function finish() {
     // Make img bassed on array position, if two are equal use 5 for Val Kilmer.
     if (highestCount != -1) {
       createImage(highestPos);
+      createCaption(highestPos);
     }
     else {
       createImage(5);
+      createCaption(5);
     }
-    // Show relative link to batman image.
-    createCaption(highestPos);
   }
 }
 
 // Create the image based off of value given by highestPos
 function createImage(highestPos) {
   // Stores the location of all the images.
-  var batmanImg = ['img/ben-affleck.jpg', "img/christian-bale.jpg",
-      "img/george-clooney.png", "img/kevin-conroy.jpg", "img/adam-west.jpg",
-      "img/val-kilmer.jpg"];
-  addImage('resultsWrapper', batmanImg[highestPos], "batmanPicked", "Batman Picture", "auto", "auto");
+  var batmanImg = ['img/ben-affleck.jpg', 'img/christian-bale.jpg',
+      'img/george-clooney.png', 'img/kevin-conroy.jpg', 'img/adam-west.jpg',
+      'img/val-kilmer.jpg'];
+  addImage('resultsWrapper', batmanImg[highestPos], "batmanPicked", "Batman Picture", "auto", "50%");
 }
 
 // Create the users profile info
 function createValidDataAccount() {
-  var personalInfoTag = ['First Name: ', "Last Name: ", "Email Address: ",
-    "Phone Number: ", "Sulley Address: "];
+  var personalInfoTag = ['First Name: ', 'Last Name: ', 'Email Address: ',
+    'Phone Number: ', 'Sulley Address: '];
   addText(personalInfoTag, "resultsWrapper", validDataAccount.length);
 }
 
@@ -309,12 +309,15 @@ function createValidDataAccount() {
 function createCaption(highestPos) {
   var batmanImgURL = [
       'img/ben-affleck.jpg',
-      "img/christian-bale.jpg",
-      "img/george-clooney.png",
-      "img/kevin-conroy.jpg",
-      "img/adam-west.jpg",
-      "img/val-kilmer.jpg"
+      'img/christian-bale.jpg',
+      'img/george-clooney.png',
+      'img/kevin-conroy.jpg',
+      'img/adam-west.jpg',
+      'img/val-kilmer.jpg'
     ];
+    var youGot = ['You got Ben Affleck!', 'You got Christian Bale!', 'You got George Clooney!',
+        'You got Kevin Conroy!','You got Adam West!','You got Val Kilmer!'];
+    addText(youGot[highestPos], "resultsWrapper", 1);
     addText(batmanImgURL[highestPos], "resultsWrapper", 1);
 }
 
