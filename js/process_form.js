@@ -112,7 +112,7 @@ function validateData(textBox, messageID) {
       return validateTextbox(validate, messageID, textBoxValue);
 
     case "sulleyAddressTextBox":
-      validate = /^\d{3}\-\d{3}\-\d{4}/i;
+      validate = /^(http:\/\/)+[\w]+.[\w]+.[\w]+.[\w]+\/~[\w]+$/;
       return validateTextbox(validate, messageID, textBoxValue);
 
     default:
@@ -274,7 +274,7 @@ function finish() {
     document.getElementById("surveyWrapper").style.display = "none";
     document.getElementById("resultsWrapper").style.display = "block";
     // Show Answers selected by user.
-    addText(textAnswers, "resultsWrapper", textAnswers.length);
+    addText(textAnswers, "results", textAnswers.length);
     // Show user proile data.
     createValidDataAccount();
     // Make img bassed on array position, if two are equal use 5 for Val Kilmer.
@@ -295,43 +295,42 @@ function createImage(highestPos) {
   var batmanImg = ['img/ben-affleck.jpg', 'img/christian-bale.jpg',
       'img/george-clooney.png', 'img/kevin-conroy.jpg', 'img/adam-west.jpg',
       'img/val-kilmer.jpg'];
-  addImage('resultsWrapper', batmanImg[highestPos], "batmanPicked", "Batman Picture", "auto", "50%");
+  addImage('results', batmanImg[highestPos], "batmanPicked", "Batman Picture", "30%", "30%");
 }
 
 // Create the users profile info
 function createValidDataAccount() {
   var personalInfoTag = ['First Name: ', 'Last Name: ', 'Email Address: ',
     'Phone Number: ', 'Sulley Address: '];
-  addText(personalInfoTag, "resultsWrapper", validDataAccount.length);
+  addText(personalInfoTag, "results", validDataAccount.length);
 }
 
 // Create the corresponding caption, which is relative link to the image.
 function createCaption(highestPos) {
   var batmanImgURL = [
-      'img/ben-affleck.jpg',
-      'img/christian-bale.jpg',
-      'img/george-clooney.png',
-      'img/kevin-conroy.jpg',
-      'img/adam-west.jpg',
-      'img/val-kilmer.jpg'
+      'http://sulley.cah.ucf.edu/~ni927795/dig3716c/assignment3/img/ben-affleck.jpg',
+      'http://sulley.cah.ucf.edu/~ni927795/dig3716c/assignment3/img/christian-bale.jpg',
+      'http://sulley.cah.ucf.edu/~ni927795/dig3716c/assignment3/img/george-clooney.png',
+      'http://sulley.cah.ucf.edu/~ni927795/dig3716c/assignment3/img/kevin-conroy.jpg',
+      'http://sulley.cah.ucf.edu/~ni927795/dig3716c/assignment3/img/adam-west.jpg',
+      'http://sulley.cah.ucf.edu/~ni927795/dig3716c/assignment3/img/val-kilmer.jpg'
     ];
     var youGot = ['You got Ben Affleck!', 'You got Christian Bale!', 'You got George Clooney!',
         'You got Kevin Conroy!','You got Adam West!','You got Val Kilmer!'];
-    addText(youGot[highestPos], "resultsWrapper", 1);
-    addText(batmanImgURL[highestPos], "resultsWrapper", 1);
+    addText(youGot[highestPos], "results", 1);
+    addText(batmanImgURL[highestPos], "results", 1);
 }
 
 // Append text to the screen.
 function addText(what, where, loopControl) {
   var node, para;
   for(i=0; i<loopControl; i++) {
-    if (where != "resultsWrapper"){
+    if (where != "results"){
       para = document.createElement("span");
     }
     else {
       para = document.createElement("p");
     }
-
     // Show relative link to batman image.
     if (loopControl == 1) {
       node = document.createTextNode(what);

@@ -134,7 +134,8 @@ margin-top: 2%;
 }
 
 .nextButton {
-  margin-top: 10%;
+  /* Used to match the buttons to same height */
+  margin-top: 19.7%;
   /* Generated CSS */
 	-moz-box-shadow: 0px 1px 0px 0px #64a364;
 	-webkit-box-shadow: 0px 1px 0px 0px #64a364;
@@ -204,6 +205,7 @@ margin-top: 2%;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #bf6767;
 }
+
 .backButton:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bf6767), color-stop(1, #bf6767));
 	background:-moz-linear-gradient(top, #bf6767 5%, #bf6767 100%);
@@ -214,6 +216,7 @@ margin-top: 2%;
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bf6767', endColorstr='#bf6767',GradientType=0);
 	background-color:#bf6767;
 }
+
 .backButton:active {
 	position:relative;
 	top:1px;
@@ -272,7 +275,11 @@ footer {
     margin-left: 4%;
   }
 
-  .batmanPicked{
-    height: 40%;
+  #resultsWrapper  p {
+    font-size: 12px;
+  }
+
+  #resultsWrapper  p:last-child {
+    font-size: 10px;
   }
 }
